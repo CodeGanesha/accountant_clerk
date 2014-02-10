@@ -1,14 +1,14 @@
 = form_for @search, :url => "/admin/reports/open_orders"  do |s|
   %label= t("date_range")
-  %br/
+  %br
   .yui-g.date-range-filter
     .yui-u.sub-field.first
       = s.text_field :created_at_gt , :class => 'datepicker'
-      %br/
+      %br
       %label.sub= t("start")
     .yui-u.sub-field
       = s.text_field :created_at_lt , :class => 'datepicker'
-      %br/
+      %br
       %label= t("stop")
   %p
     %input#search_completed_at_not_null{name: "csv", type: "checkbox", value: "1"}/

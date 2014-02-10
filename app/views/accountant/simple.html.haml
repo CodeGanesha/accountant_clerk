@@ -1,65 +1,60 @@
-- content_for :head do
-  %script#source{type: "text/javascript"}
-    :cdata
-      var d =  #{raw @flot_data.to_json} ;
-  = javascript_include_tag 'accountant.js'
-#placeholder{style: "width:800px;height:400px;"}
-%script#source{type: "text/javascript"}
-  :cdata
-    $(function () {
-    $.plot($("#placeholder"), d , #{raw @flot_options.to_json});
-    });
-#legend
-- content_for :sidebar do
-  %div
+.row
+  #placeholder.col-md-9{style: "height:600px;"}
+    %script#source{type: "text/javascript"}
+      :cdata
+        $(function () {
+        $.plot($("#placeholder"), d , #{raw @flot_options.to_json});
+        });
+    #legend
+  .col-md-3
     = search_form_for @search , :url => accountant_url do |f|
       .box
         %h3= t(:search)
         %div{"data-hook" => "admin_products_index_search"}
           .left.sub-field
             = f.label :name
-            %br/
+            %br
             = f.text_field :product_product_name_cont, :size => 15
           .right.sub-field
             = f.label :supplier_name
-            %br/
-            = f.text_field :variant_product_variants_option_values_name_cont, :size => 15
+            %br
+            = f.text_field :product_supplier_supplier_name_cont, :size => 15
           .left.sub-field
-            = f.label :categorys_name_cont
-            %br/
-            = f.text_field :variant_product_categorys_name_cont, :size => 15
+            = f.label :category_name
+            %br
+            = f.text_field :product_category_name_cont, :size => 15
           .right.sub-field
-            = f.label :properties_value
-            %br/
-            = f.text_field :variant_product_product_properties_value_cont, :size => 15
+            = f.label :properties
+            %br
+            = f.text_field :product_properties_cont, :size => 15
           %label Price between
-          %br/
+          %br
           .left.sub-field
             = f.text_field :price_gt , :size => 6
-            %br/
+            %br
             %label.sub= t("more_than")
           .right.sub-field
             = f.text_field :price_lt , :size => 6
-            %br/
+            %br
             %label= t("less_than")
           %label= t("date_range")
-          %br/
+          %br
           .date-range-filter
             .left.sub-field
               = f.text_field :created_at_gt, :class => 'datepicker'
-              %br/
+              %br
               %label.sub= t("start")
             .right.sub-field
               = f.text_field :created_at_lt, :class => 'datepicker'
-              %br/
+              %br
               %label= t("stop")
           %p
             %label= t("group_by")
-            %br/
-            = select_tag :group_by,  options_for_select( group_options , @group_by)
+            %br
+              = text_field_tag :group_by
           %p
             %label= t("price_or_quantity")
-            %br/
+            %br
             = t(:price)
             = radio_button_tag :price_or,  "total" , :total == @price_or
             = t(:quantity)
