@@ -1,5 +1,5 @@
-::Core::Engine.routes.draw do
-  match '/admin/reports/simple' => 'admin/reports#simple' , 
-                      :as => "simple_admin_reports",  :via  => [:get, :post]
+OfficeClerk::Application.routes.draw do
+  match 'accountant' => 'accountant#simple' , 
+                      :as => "accountant",  :via  => [:get, :post]
 end
 

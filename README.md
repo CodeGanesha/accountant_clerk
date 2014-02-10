@@ -39,9 +39,9 @@ The general idea is to start with an overview and drill down into interesting we
 
 For example, start with a year view by month, and group by Taxon. As a result you see which of your Taxons sells best and when it is selling the most. This may help you to create promotions at the right time for example.
 
-Say you have already found your strongest Taxons but want to break it down by whatever properties you use. We have e.g. Supplier. So enter the taxon name into the taxon field, and group by the property: Thus you find the best selling supplier in that taxon and you may want to add a cross-sell for it, or an up-sell for similar products by other suppliers.
+Say you have already found your strongest Taxons but want to break it down by whatever properties you use. We have e.g. Supplier. So enter the category name into the category field, and group by the property: Thus you find the best selling supplier in that category and you may want to add a cross-sell for it, or an up-sell for similar products by other suppliers.
 
-Then you could add the supplier name to the property search field, and then group by ::Product. You then see the best selling Products of that Supplier in that Taxon, or if you remove the taxon name from the search, the best selling Products of that supplier.
+Then you could add the supplier name to the property search field, and then group by ::Product. You then see the best selling Products of that Supplier in that Taxon, or if you remove the category name from the search, the best selling Products of that supplier.
 
 In fact I often alternate between two properties. Search by one property, group by another and back and forth. 
 

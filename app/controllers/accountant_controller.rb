@@ -1,12 +1,5 @@
-::ReportsController.class_eval do
-
-  before_filter :kludge_simple 
+class AccountantController < AdminController
   
-  def kludge_simple
-    return if ::ReportsController::AVAILABLE_REPORTS.has_key?(:simple)
-    ::ReportsController::AVAILABLE_REPORTS.merge!({ :simple => {:name => "Simple", :description => "Simple reporting with options"}  })
-  end
-
   def simple
     search = params[:q] || {}
     search[:meta_sort] = "created_at asc"
@@ -27,15 +20,15 @@
     search[:order_completed_at_present] = true
     search_on = case @group_by
       when "all"
-        ::LineItem
-      when "by_taxon"
-        ::LineItem.includes(:taxon)
+        Item
+      when "by_category"
+        Item.includes(:category)
       when "by_product"
-        ::LineItem
+        Item
       when "by_variant"
-        ::LineItem
+        Item
       else
-        ::LineItem.includes(:product => [:product_properties])
+        Item.includes(:product)
       end
     @search = search_on.includes(:product).ransack(search)
     @flot_options = { :series => {  :bars =>  { :show => true , :barWidth => @days * 24*60*60*1000 } , :stack => 0 } , 
@@ -72,8 +65,8 @@
   def get_bucket item
     return "all" if @group_by == "all"
     case @group_by 
-    when "by_taxon"
-        item.variant.product.taxons.first.blank? ? "blank" : item.variant.product.taxons.first.name
+    when "by_category"
+        item.variant.product.categorys.first.blank? ? "blank" : item.variant.product.categorys.first.name
     when "by_product"
         item.variant.product.name
     when "by_variant"

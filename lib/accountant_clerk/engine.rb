@@ -1,6 +1,6 @@
-module SimpleReport
+module AccountantClerk
   class Engine < Rails::Engine
-    engine_name 'spree_simple_reports'
+    engine_name 'accountant_clerk'
 
     config.autoload_paths += %W(#{config.root}/lib)
 
@@ -25,3 +25,4 @@ module SimpleReport
     config.to_prepare &method(:activate).to_proc
   end
 end
+puts "ENGINE loaded"
