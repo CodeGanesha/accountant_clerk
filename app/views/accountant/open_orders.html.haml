@@ -1,0 +1,20 @@
+%h1= t("open_orders")
+%table.admin-report
+  %tbody
+    %tr
+      %th{scope: "row"}
+        = t("item_total")
+        \:
+      %td{align: "right"}= number_to_currency @item_total
+    %tr
+      %th{scope: "row"}
+        = t("adjustment_total")
+        \:
+      %td{align: "right"}= number_to_currency @adjustment_total
+    %tr
+      %th{scope: "row"}
+        = t("sales_total")
+        \:
+      %td{align: "right"}= number_to_currency @sales_total
+- content_for :sidebar do
+  = render :partial => 'admin/reports/report_bar'
