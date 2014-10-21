@@ -1,67 +1,75 @@
+- content_for :head do
+  %script#source{:type => "text/javascript"}
+    var d =  #{@flot_data.to_json.html_safe} ;
+  /[if lte IE 8] <script language="javascript" type="text/javascript" src="../excanvas.min.js"></script>
+  = javascript_include_tag 'jquery.flot.js'
+  = javascript_include_tag 'jquery.flot.stack.js'
 .row
-  #placeholder.col-md-9{style: "height:600px;"}
-    %script#source{type: "text/javascript"}
-      :cdata
-        $(function () {
-        $.plot($("#placeholder"), d , #{raw @flot_options.to_json});
-        });
+  .col-md-9
+    #placeholder{:style => "width:800px;height:400px;"}
+    %script#source{:type => "text/javascript"}
+      $(function () {
+      $.plot($("#placeholder"), d , #{@flot_options.to_json.html_safe} );
+      });
     #legend
   .col-md-3
-    = search_form_for @search , :url => accountant_url do |f|
-      .box
-        %h3= t(:search)
-        %div{"data-hook" => "admin_products_index_search"}
-          .left.sub-field
-            = f.label :name
-            %br
-            = f.text_field :product_product_name_cont, :size => 15
-          .right.sub-field
-            = f.label :supplier_name
-            %br
-            = f.text_field :product_supplier_supplier_name_cont, :size => 15
-          .left.sub-field
-            = f.label :category_name
-            %br
-            = f.text_field :product_category_name_cont, :size => 15
-          .right.sub-field
-            = f.label :properties
-            %br
-            = f.text_field :product_properties_cont, :size => 15
-          %label Price between
-          %br
-          .left.sub-field
-            = f.text_field :price_gt , :size => 6
-            %br
-            %label.sub= t("more_than")
-          .right.sub-field
-            = f.text_field :price_lt , :size => 6
-            %br
-            %label= t("less_than")
-          %label= t("date_range")
-          %br
-          .date-range-filter
-            .left.sub-field
-              = f.text_field :created_at_gt, :class => 'datepicker'
-              %br
-              %label.sub= t("start")
-            .right.sub-field
-              = f.text_field :created_at_lt, :class => 'datepicker'
-              %br
-              %label= t("stop")
-          %p
-            %label= t("group_by")
-            %br
-              = text_field_tag :group_by
-          %p
-            %label= t("price_or_quantity")
-            %br
-            = t(:price)
-            = radio_button_tag :price_or,  "total" , :total == @price_or
-            = t(:quantity)
-            = radio_button_tag :price_or,  "quantity" , :quantity == @price_or
-          = button_tag( :name => 'period' , :value => :week ) do
-            %span Week
-          = button_tag( :name => 'period' , :value => :month ) do
-            %span Month
+    = search_form_for @search , :url => admin_reports_url , :html => { :class => "well well-small" } do |f|
+      .form-group.row
+        .col-md-4
+          = f.label :product_name_cont, t("name")
+        .col-md-8
+          = f.text_field :product_name_cont, :size => 15
+        .col-md-4
+          = f.label :supplier
+        .col-md-8
+          = f.text_field :product_supplier_supplier_name_cont, :size => 15
+      .form-group.row
+        .col-md-4
+          = f.label :category
+        .col-md-8
+          = f.text_field :product_category_name_cont, :size => 15
+        .col-md-4
+          = f.label :property
+        .col-md-8
+          = f.text_field :product_properties_cont, :size => 15
+      .form-group.row
+        .col-md-3
+          = f.label :price
+        .col-md-3
+          = f.text_field :price_gt , :size => 6
+        .col-md-1
+          
+        .col-md-3
+          = f.text_field :price_lt , :size => 6
+      .form-group.row
+        %label= t("date_range")
+        .date-range-filter
+          .col-md-4
+            = f.label :start
+          .col-md-8
+            = f.text_field :created_at_gt, :class => 'datepicker'
+          .col-md-4
+            = f.label :stop
+          .col-md-8
+            = f.text_field :created_at_lt, :class => 'datepicker'
+      .form-group.row
+        %label= t("group_by")
+        %br/
+        = select_tag :group_by,  options_for_select( group_options , @group_by)
+      .form-group.row
+        .col-md-6
+          = t(:price)
+          = radio_button_tag :price_or,  "total" , :total == @price_or
+        .col-md-6
+          = t(:quantity)
+          = radio_button_tag :price_or,  "quantity" , :quantity == @price_or
+      .form-group.row
+        .col-md-4
           = button_tag( :name => 'period' , :value => :day ) do
             %span Day
+        .col-md-4
+          = button_tag( :name => 'period' , :value => :week ) do
+            %span Week
+        .col-md-4
+          = button_tag( :name => 'period' , :value => :month ) do
+            %span Month
