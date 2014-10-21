@@ -1,5 +1,5 @@
 OfficeClerk::Application.routes.draw do
-  match 'accountant' => 'accountant#simple' , 
-                      :as => "accountant",  :via  => [:get, :post]
+  match '/reports/simple' => 'reports#simple' , 
+                      :as => "admin_reports",  :via  => [:get, :post]
 end
 
