@@ -1,6 +1,6 @@
 class AccountantController < AdminController
 
-  def simple
+  def report
     search = params[:q] || {}
     search[:meta_sort] = "created_at asc"
     if search[:created_at_gt].blank?
