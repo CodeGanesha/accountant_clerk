@@ -1,5 +1,5 @@
 class AccountantController < AdminController
-  
+
   def simple
     search = params[:q] || {}
     search[:meta_sort] = "created_at asc"
@@ -28,7 +28,7 @@ class AccountantController < AdminController
       when "by_variant"
         Item
       else
-        Item.includes(:product)
+        Item
       end
     @search = search_on.includes(:product).ransack(search)
     @flot_options = { :series => {  :bars =>  { :show => true , :barWidth => @days * 24*60*60*1000 } , :stack => 0 } , 
@@ -56,7 +56,7 @@ class AccountantController < AdminController
     end
     @flot_data = flot.collect do |label , data |
       buck = bucket_array( data , smallest , largest )
-      sum = buck.inject(0.0){|total , val | total + val[1] }
+      sum = buck.inject(0.0){|total , val | total + val[1] }.round(2)
       { :label => "#{label} =#{sum}" , :data => buck } 
     end
     @flot_data.sort!{ |a,b| b[:label].split("=")[1].to_f <=> a[:label].split("=")[1].to_f }
@@ -66,13 +66,16 @@ class AccountantController < AdminController
     return "all" if @group_by == "all"
     case @group_by 
     when "by_category"
-        item.variant.product.categorys.first.blank? ? "blank" : item.variant.product.categorys.first.name
+      item.product.category.blank? ? "blank" : item.product.category.name
     when "by_product"
-        item.variant.product.name
-    when "by_variant"
-        item.variant.full_name
+      item.product.name
+    when "by_product_line"
+      return "Basket #{item.basket.id}" if item.product.line_item? and not item.product.product
+      return "Basket #{item.basket.id}" unless item.product
+      item.product.full_name
+#      item.product.line_item? ? item.product.product.name : item.product.name
     else
-      pps = item.variant.product.product_properties.detect{|p| p.property.name == @group_by}
+      pps = item.product.properties.detect{|p,v| p == @group_by}
       pps ? pps.value : "blank"
     end
   end

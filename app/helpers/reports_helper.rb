@@ -11,4 +11,11 @@ module ReportsHelper
     end
   end
 
+  def group_options
+    opt = { t("all") =>  :all , t("category") => :by_category  ,  
+      t("product")  => :by_product  ,  t("product_line") => :by_product_line}
+#    Property.all.each { |p| opt[p.name] = p.name }
+    opt
+  end
+
 end
