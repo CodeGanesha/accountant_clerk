@@ -15,6 +15,10 @@
   .col-md-3
     = search_form_for @search , :url => admin_reports_url , :html => { :class => "well well-small" } do |f|
       .form-group.row
+        = f.label :type
+        %br/
+        = select_tag :type,  options_for_select( { t("order") => "Order" , t("purchase") =>  "Purchase"  } , @type)
+      .form-group.row
         .col-md-4
           = f.label :product_name_cont, t("name")
         .col-md-8

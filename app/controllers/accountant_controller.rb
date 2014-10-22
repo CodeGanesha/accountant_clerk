@@ -12,6 +12,8 @@ class AccountantController < AdminController
       search[:created_at_lt] =
           Time.zone.parse(search[:created_at_lt]).end_of_day rescue search[:created_at_lt]
     end
+    @type = params[:type] || "Order"
+    search[:basket_kori_type_eq] = @type
     @period = params[:period] || "week"
     @days = 1
     @days = 7 if @period == "week"
@@ -67,6 +69,8 @@ class AccountantController < AdminController
     case @group_by 
     when "by_category"
       item.product.category.blank? ? "blank" : item.product.category.name
+    when "by_supplier"
+      item.product.supplier.blank? ? "blank" : item.product.supplier.supplier_name
     when "by_product"
       item.product.name
     when "by_product_line"
