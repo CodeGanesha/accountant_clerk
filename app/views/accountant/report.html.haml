@@ -1,9 +1,9 @@
 - content_for :head do
   %script#source{:type => "text/javascript"}
     var d =  #{@flot_data.to_json.html_safe} ;
-  /[if lte IE 8] <script language="javascript" type="text/javascript" src="../excanvas.min.js"></script>
-  = javascript_include_tag 'jquery.flot.js'
-  = javascript_include_tag 'jquery.flot.stack.js'
+  = javascript_include_tag 'jquery.flot'
+  = javascript_include_tag 'jquery.flot.resize'
+  = javascript_include_tag 'jquery.flot.time'
 .row
   .col-md-9
     #placeholder{:style => "width:800px;height:400px;"}
