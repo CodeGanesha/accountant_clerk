@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'accountant_clerk'
-  s.version     = '0.3'
+  s.version     = '0.4'
   s.summary     = 'Simple reports that are not so simple anymore'
   s.required_ruby_version = '>= 1.9.3'
 
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_runtime_dependency 'office_clerk', '~> 0.1'
+  s.add_runtime_dependency 'office_clerk', '~> 0.3'
   s.add_runtime_dependency 'flot-rails', '~> 0.0.6'
 end
 
