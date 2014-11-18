@@ -13,7 +13,7 @@
       });
     #legend
   .col-md-3
-    = search_form_for @search , :url => admin_reports_url , :html => { :class => "well well-small" } do |f|
+    = search_form_for @search , :url => manage_reports_url , :html => { :class => "well well-small" } do |f|
       .form-group.row
         = f.label :type
         %br/

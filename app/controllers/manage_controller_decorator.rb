@@ -1,4 +1,4 @@
-class AccountantController < AdminController
+ManageController.class_eval do
 
   def report
     search = params[:q] || {}
