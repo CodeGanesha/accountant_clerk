@@ -1,5 +1,4 @@
-/*
-*/
+//= require flotomatic
 
 div.flot_choice_label { font-variant: small-caps; font-weight: bold;}
 div.flot_canvas {width:600px; height:300px}
