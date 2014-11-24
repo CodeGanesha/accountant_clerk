@@ -18,7 +18,7 @@ module AccountantClerk
       end
     end
     initializer "office.assets.precompile", :group => :all do |app|
-      app.config.assets.precompile += ["office_*"]
+      app.config.assets.precompile += ["*_office_*"]
     end
 
     config.to_prepare &method(:activate).to_proc
