@@ -17,8 +17,8 @@ module AccountantClerk
         Rails.application.config.cache_classes ? require(c) : load(c)
       end
     end
-    initializer "office.assets.precompile", :group => :all do |app|
-      app.config.assets.precompile += ["*_office_*"]
+    initializer "accountant.precompile", :group => :all do |app|
+      app.config.assets.precompile += ["accountant_office.css" , "accountant_office.js"]
     end
 
     config.to_prepare &method(:activate).to_proc
