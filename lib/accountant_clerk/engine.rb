@@ -2,6 +2,12 @@ module AccountantClerk
   class Engine < Rails::Engine
     engine_name 'accountant_clerk'
 
+    #indicate that we have stylesheet/js stuff to be added to office, with the given name
+    # files (css + js) must exist in asset path
+    def office_assets
+      "accountant_office"
+    end
+
     config.autoload_paths += %W(#{config.root}/lib)
 
     # use rspec for tests
