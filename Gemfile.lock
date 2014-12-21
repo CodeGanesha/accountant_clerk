@@ -24,7 +24,7 @@ GIT
 PATH
   remote: ../
   specs:
-    accountant_clerk (0.5)
+    accountant_clerk (0.6)
       flot-rails (~> 0.0.6)
       office_clerk (~> 0.4)
 
