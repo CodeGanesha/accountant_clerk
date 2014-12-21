@@ -26,7 +26,7 @@ PATH
   specs:
     accountant_clerk (0.6)
       flot-rails (~> 0.0.6)
-      office_clerk (~> 0.4)
+      office_clerk (~> 0.8)
 
 GEM
   remote: https://rubygems.org/
