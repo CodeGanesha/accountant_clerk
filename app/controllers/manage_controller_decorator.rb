@@ -4,7 +4,7 @@ ManageController.class_eval do
     search = params[:q] || {}
     search[:meta_sort] = "created_at asc"
     if search[:created_at_gt].blank?
-      search[:created_at_gt] = Time.now - 3.months
+      search[:created_at_gt] = (Time.now - 3.months)
     else
       search[:created_at_gt] = Time.zone.parse(search[:created_at_gt]).beginning_of_day rescue Time.zone.now.beginning_of_month
     end
@@ -33,7 +33,7 @@ ManageController.class_eval do
         Item
       end
     @search = search_on.includes(:product).ransack(search)
-    @flot_options = { :series => {  :bars =>  { :show => true , :barWidth => @days * 24*60*60*1000 } , :stack => 0 } , 
+    gon.flot_options = { :series => {  :bars =>  { :show => true , :barWidth => @days * 24*60*60*1000 } , :stack => 0 } , 
                       :legend => {  :container => "#legend"} , 
                       :xaxis =>  { :mode => "time" }  
                     }
@@ -56,12 +56,12 @@ ManageController.class_eval do
         flot[ bucket ] << item        
       end
     end
-    @flot_data = flot.collect do |label , data |
+    flot_data = flot.collect do |label , data |
       buck = bucket_array( data , smallest , largest )
       sum = buck.inject(0.0){|total , val | total + val[1] }.round(2)
       { :label => "#{label} =#{sum}" , :data => buck } 
     end
-    @flot_data.sort!{ |a,b| b[:label].split("=")[1].to_f <=> a[:label].split("=")[1].to_f }
+    gon.flot_data = flot_data.sort{ |a,b| b[:label].split("=")[1].to_f <=> a[:label].split("=")[1].to_f }
   end
       
   def get_bucket item

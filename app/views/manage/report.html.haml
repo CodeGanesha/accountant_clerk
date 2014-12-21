@@ -1,6 +1,4 @@
 - content_for :head do
-  %script#source{:type => "text/javascript"}
-    var d =  #{@flot_data.to_json.html_safe} ;
   = javascript_include_tag 'jquery.flot'
   = javascript_include_tag 'jquery.flot.resize'
   = javascript_include_tag 'jquery.flot.time'
@@ -9,7 +7,7 @@
     #placeholder{:style => "width:800px;height:400px;"}
     %script#source{:type => "text/javascript"}
       $(function () {
-      $.plot($("#placeholder"), d , #{@flot_options.to_json.html_safe} );
+      $.plot($("#placeholder"), gon.flot_data , gon.flot_options );
       });
     #legend
   .col-md-3
@@ -51,11 +49,11 @@
           .col-md-4
             = f.label :start
           .col-md-8
-            = f.text_field :created_at_gt, :class => 'datepicker'
+            = f.text_field :created_at_gt, :class => 'datepicker' , :value => sort_date(:created_at_gt)
           .col-md-4
             = f.label :stop
           .col-md-8
-            = f.text_field :created_at_lt, :class => 'datepicker'
+            = f.text_field :created_at_lt, :class => 'datepicker', :value => sort_date(:created_at_lt)
       .form-group.row
         %label= t("group_by")
         %br/

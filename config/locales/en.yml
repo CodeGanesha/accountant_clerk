@@ -1,2 +1,7 @@
 en:
   some: ho
+
+fi:
+  date_range: Pvm
+  group_by: Ryhmitellä
+  all: Kaikki
