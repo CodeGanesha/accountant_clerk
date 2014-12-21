@@ -11,53 +11,47 @@
       });
     #legend
   .col-md-3
-    = search_form_for @search , :url => manage_reports_url , :html => { :class => "well well-small" } do |f|
-      .form-group.row
-        = f.label :type
-        %br/
-        = select_tag :type,  options_for_select( { t("order") => "Order" , t("purchase") =>  "Purchase"  } , @type)
-      .form-group.row
+    = search_form_for @search , :url => manage_reports_url , :html => { :class => "form-horizontal" , :role => "form"} do |f|
+      .form-group
+        = select_tag :type,  options_for_select( { t("order") => "Order" , t("purchase") =>  "Purchase"  } , @type) , :class => "form-control"
+      .form-group
         .col-md-4
           = f.label :product_name_cont, t("name")
         .col-md-8
-          = f.text_field :product_name_cont, :size => 15
+          = f.text_field :product_name_cont, :size => 15 , :class => "form-control"
         .col-md-4
-          = f.label :supplier
+          = f.label :supplier , t(:supplier)
         .col-md-8
-          = f.text_field :product_supplier_supplier_name_cont, :size => 15
+          = f.text_field :product_supplier_supplier_name_cont, :size => 15 , :class => "form-control"
       .form-group.row
         .col-md-4
-          = f.label :category
+          = f.label :category, t(:category)
         .col-md-8
-          = f.text_field :product_category_name_cont, :size => 15
+          = f.text_field :product_category_name_cont, :size => 15 , :class => "form-control"
         .col-md-4
-          = f.label :property
+          = f.label :property , t(:property)
         .col-md-8
-          = f.text_field :product_properties_cont, :size => 15
+          = f.text_field :product_properties_cont, :size => 15 , :class => "form-control"
       .form-group.row
         .col-md-3
-          = f.label :price
+          = f.label :price , t(:price)
         .col-md-3
-          = f.text_field :price_gt , :size => 6
+          = f.text_field :price_gt , :size => 6 , :class => "form-control"
         .col-md-1
           
         .col-md-3
-          = f.text_field :price_lt , :size => 6
+          = f.text_field :price_lt , :size => 6 , :class => "form-control"
       .form-group.row
         %label= t("date_range")
         .date-range-filter
-          .col-md-4
-            = f.label :start
-          .col-md-8
-            = f.text_field :created_at_gt, :class => 'datepicker' , :value => sort_date(:created_at_gt)
-          .col-md-4
-            = f.label :stop
-          .col-md-8
-            = f.text_field :created_at_lt, :class => 'datepicker', :value => sort_date(:created_at_lt)
+          .col-md-6
+            = f.text_field :created_at_gt, :class => 'datepicker form-control' , :value => sort_date(:created_at_gt)
+          .col-md-6
+            = f.text_field :created_at_lt, :class => 'datepicker form-control', :value => sort_date(:created_at_lt)
       .form-group.row
         %label= t("group_by")
         %br/
-        = select_tag :group_by,  options_for_select( group_options , @group_by)
+        = select_tag :group_by,  options_for_select( group_options , @group_by) , :class => "form-control"
       .form-group.row
         .col-md-6
           = t(:price)
