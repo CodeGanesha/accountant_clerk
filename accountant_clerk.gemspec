@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'accountant_clerk'
-  s.version     = '0.5'
+  s.version     = '0.6'
   s.summary     = 'Simple reports that are not so simple anymore'
   s.required_ruby_version = '>= 1.9.3'
 

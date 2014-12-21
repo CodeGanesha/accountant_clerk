@@ -45,13 +45,22 @@ In fact I often alternate between two properties. Search by one property, group 
 Installation
 ===========
 
-I'm not releasing gems now. It's not really beta yet, but may still be useful to some. So the well known gem line is:
+Just add 
 
-gem 'report_clerk', :git => 'git://github.com/dancinglightning/clerk_simple_reports.git'
+gem "accountant_clerk"
+
+to your Gemfile and bundle.
 
 There are no external dependencies and the only javascript file is referenced from the one template. So no further actions should be needed.
 
 Warning: Do not do silly queries as they will slow down your production environment. For intensive work I suggest to copy your database, ie with yaml_db, to your local machine first.
+
+Status
+======
+
+This is an old spree extension ported to clerks. As such it has been in use for 4-5 years. 
+While that doesn't make it perfect (see below) it does mean it is stable.
+The version number (<1) refers more to the code cleanliness than it's functionlity (read help appreciated)
 
 Issues
 =======
@@ -60,7 +69,7 @@ The metasearch with subsequent ruby code approach has served well to get the pro
 
 As the search searches Items , items that are in non completed orders are included. Quite trivial fix, just never got around to it as we don't have that problem.
 
-Also it is quite simple to grind your database and server to a halt by grouping by variant, and reporting a year by day.
+Also it is quite simple to grind your database and server to a halt by grouping by product, and reporting a year by day.
   
 Plans
 =====
@@ -71,5 +80,6 @@ Vague Plans exist to introduce also:
 - Reports about Order numbers
 - Grouping by customer
 
+Started to use gon now, but still the code could use cleaning (and testing)
 
 Copyright (c) 2014 [Torsten Ruger], released under the New BSD License
