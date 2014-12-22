@@ -4,13 +4,20 @@ ManageController.class_eval do
     search = params[:q] || {}
     search[:meta_sort] = "created_at asc"
     if search[:created_at_gt].blank?
-      search[:created_at_gt] = (Time.now - 3.months)
+      search[:created_at_gt] = short_date(Time.now - 3.months)
     else
-      search[:created_at_gt] = Time.zone.parse(search[:created_at_gt]).beginning_of_day rescue Time.zone.now.beginning_of_month
+      search[:created_at_gt] =
+        begin
+          short_date(Time.zone.parse(search[:created_at_gt]).beginning_of_day) 
+        rescue 
+          I18n.l(Time.zone.now.beginning_of_month)
+        end
     end
     unless search[:created_at_lt].blank?
-      search[:created_at_lt] =
-          Time.zone.parse(search[:created_at_lt]).end_of_day rescue search[:created_at_lt]
+      begin
+        search[:created_at_lt] = short_date(Time.zone.parse(search[:created_at_lt]).end_of_day) 
+      rescue 
+      end
     end
     @type = params[:type] || "Order"
     search[:basket_kori_type_eq] = @type
@@ -41,6 +48,12 @@ ManageController.class_eval do
 # csv ?      send_data( render_to_string( :csv , :layout => false) , :type => "application/csv" , :filename => "tilaukset.csv") 
   end
   
+  private
+  
+  def short_date d
+    d = d.to_date unless d.is_a? Date
+    I18n.l( d , :format => :default)
+  end
   def group_data
     @group_by = (params[:group_by] || "all" )
     all = @search.result(:distinct => true )
