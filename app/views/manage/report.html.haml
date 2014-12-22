@@ -16,56 +16,53 @@
         = select_tag :type,  options_for_select( { t("order") => "Order" , t("purchase") =>  "Purchase"  } , @type) , :class => "form-control"
       .form-group
         .col-md-4
-          = f.label :product_name_cont, t("name")
+          = f.label :product_name_or_product_product_name_cont, t("name")
         .col-md-8
           = f.text_field :product_name_cont, :size => 15 , :class => "form-control"
+      .form-group
         .col-md-4
           = f.label :supplier , t(:supplier)
         .col-md-8
-          = f.text_field :product_supplier_supplier_name_cont, :size => 15 , :class => "form-control"
-      .form-group.row
+          = f.collection_select :product_supplier_id_eq, Supplier.all, :id, :supplier_name, {:include_blank => true}, :class=>"form-control"
+      .form-group
         .col-md-4
           = f.label :category, t(:category)
         .col-md-8
-          = f.text_field :product_category_name_cont, :size => 15 , :class => "form-control"
+          = f.collection_select :product_category_id_eq, Category.all, :id, :name, {:include_blank => true}, :class=>"form-control"
+      .form-group
         .col-md-4
           = f.label :property , t(:property)
         .col-md-8
           = f.text_field :product_properties_cont, :size => 15 , :class => "form-control"
-      .form-group.row
-        .col-md-3
+      .form-group
+        .col-md-4
           = f.label :price , t(:price)
-        .col-md-3
-          = f.text_field :price_gt , :size => 6 , :class => "form-control"
-        .col-md-1
-          
-        .col-md-3
+        .col-md-4
+          = f.text_field :price_gt , :size => 6 , :class => "form-control"          
+        .col-md-4
           = f.text_field :price_lt , :size => 6 , :class => "form-control"
-      .form-group.row
+      .form-group
         %label= t("date_range")
         .date-range-filter
           .col-md-6
             = f.text_field :created_at_gt, :class => 'datepicker form-control' , :value => sort_date(:created_at_gt)
           .col-md-6
             = f.text_field :created_at_lt, :class => 'datepicker form-control', :value => sort_date(:created_at_lt)
-      .form-group.row
+      .form-group
         %label= t("group_by")
         %br/
         = select_tag :group_by,  options_for_select( group_options , @group_by) , :class => "form-control"
-      .form-group.row
+      .form-group
         .col-md-6
           = t(:price)
           = radio_button_tag :price_or,  "total" , :total == @price_or
         .col-md-6
           = t(:quantity)
           = radio_button_tag :price_or,  "quantity" , :quantity == @price_or
-      .form-group.row
+      .form-group
         .col-md-4
-          = button_tag( :name => 'period' , :value => :day ) do
-            %span Day
+          = f.submit :month , :class => "btn btn-success" , :name => 'period'
         .col-md-4
-          = button_tag( :name => 'period' , :value => :week ) do
-            %span Week
+          = f.submit :week , :class => "btn btn-success" , :name => 'period'
         .col-md-4
-          = button_tag( :name => 'period' , :value => :month ) do
-            %span Month
+          = f.submit :day , :class => "btn btn-success" , :name => 'period'
