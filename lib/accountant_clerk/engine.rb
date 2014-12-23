@@ -24,8 +24,7 @@ module AccountantClerk
       end
     end
     initializer "accountant.precompile", :group => :all do |app|
-      app.config.assets.precompile += ["accountant_office.css" , "accountant_office.js" , 
-                        "jquery.flot.js" , "jquery.flot.resize.js" ,  "jquery.flot.time.js" ]
+      app.config.assets.precompile += ["accountant_office.css" , "accountant_office.js" ,  "accountant_report.js" ]
     end
 
     config.to_prepare &method(:activate).to_proc
