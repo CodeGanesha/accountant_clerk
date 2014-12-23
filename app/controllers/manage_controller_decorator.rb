@@ -40,7 +40,7 @@ ManageController.class_eval do
         Item
       end
     @search = search_on.includes(:product).ransack(search)
-    gon.flot_options = { :series => {  :bars =>  { :show => true , :barWidth => @days * 24*60*60*1000 } , :stack => 0 } , 
+    gon.flot_options = { :series => {  :bars =>  { :show => true , :barWidth => @days * 24*60*60*1000 } , :stack => true } , 
                       :legend => {  :container => "#legend"} , 
                       :xaxis =>  { :mode => "time" }  
                     }
@@ -85,12 +85,11 @@ ManageController.class_eval do
     when "by_supplier"
       item.product.supplier.blank? ? "blank" : item.product.supplier.supplier_name
     when "by_product"
-      item.product.name
+      item.product.full_name
     when "by_product_line"
-      return "Basket #{item.basket.id}" if item.product.line_item? and not item.product.product
+      return "Basket #{item.basket.id}" if item.product.product_item? and not item.product.product
       return "Basket #{item.basket.id}" unless item.product
       item.product.full_name
-#      item.product.line_item? ? item.product.product.name : item.product.name
     else
       pps = item.product.properties.detect{|p,v| p == @group_by}
       pps ? pps.value : "blank"
