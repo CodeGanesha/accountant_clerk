@@ -87,9 +87,7 @@ ManageController.class_eval do
     when "by_product"
       item.product.full_name
     when "by_product_line"
-      return "Basket #{item.basket.id}" if item.product.product_item? and not item.product.product
-      return "Basket #{item.basket.id}" unless item.product
-      item.product.full_name
+      item.product.product ? item.product.product.name : item.product.name
     else
       pps = item.product.properties.detect{|p,v| p == @group_by}
       pps ? pps.value : "blank"
