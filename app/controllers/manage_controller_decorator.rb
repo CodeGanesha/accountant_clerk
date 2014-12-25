@@ -45,7 +45,6 @@ ManageController.class_eval do
                       :xaxis =>  { :mode => "time" }  
                     }
     group_data
-# csv ?      send_data( render_to_string( :csv , :layout => false) , :type => "application/csv" , :filename => "tilaukset.csv") 
   end
   
   private

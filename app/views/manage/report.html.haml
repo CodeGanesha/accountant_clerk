@@ -51,12 +51,15 @@
         %br/
         = select_tag :group_by,  options_for_select( group_options , @group_by) , :class => "form-control"
       .form-group
-        .col-md-6
+        .col-md-4
           = t(:price)
-          = radio_button_tag :price_or,  "total" , :total == @price_or
-        .col-md-6
+          = radio_button_tag :price_or,  :total , :total == @price_or
+        .col-md-4
+          = t(:profit)
+          = radio_button_tag :price_or,  :profit , :profit == @price_or
+        .col-md-4
           = t(:quantity)
-          = radio_button_tag :price_or,  "quantity" , :quantity == @price_or
+          = radio_button_tag :price_or,  :quantity , :quantity == @price_or
       .form-group
         .col-md-4
           = f.submit :month , :class => "btn btn-success" , :name => 'period'
