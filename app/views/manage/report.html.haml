@@ -14,9 +14,9 @@
         = select_tag :type,  options_for_select( { t("order") => "Order" , t("purchase") =>  "Purchase"  } , @type) , :class => "form-control"
       .form-group
         .col-md-4
-          = f.label :product_name_or_product_product_name_cont, t("name")
+          = f.label :product_name_cont, t("name")
         .col-md-8
-          = f.text_field :product_name_cont, :size => 15 , :class => "form-control"
+          = f.text_field :product_name_or_product_product_name_cont, :size => 15 , :class => "form-control"
       .form-group
         .col-md-4
           = f.label :supplier , t(:supplier)
