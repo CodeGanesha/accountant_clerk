@@ -1,9 +1,7 @@
 en:
-  some: ho
-
-fi:
-  profit: Kate
-  date_range: Päivämäärä
-  group_by: Ryhmitellä
-  all: Kaikki
-  property: Omaisuus
+  profit: Profit
+  date_range: Date
+  group_by: Group by
+  all: All
+  property: Property
+  
