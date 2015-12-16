@@ -5,9 +5,13 @@ gem "accountant_clerk" , :path => "../"
 
 gem 'sqlite3'
 
+# those guys dropped 1.9 support, but i haven't
+gem "autoprefixer-rails" , '< 6.0' , :platform => [:ruby_19]
+
+
 #asset / production reelated
 gem "therubyracer"
-gem "libv8" 
+gem "libv8"
 gem "rb-readline"
 gem 'uglifier', '>= 1.3.0'
 
