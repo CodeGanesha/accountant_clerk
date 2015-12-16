@@ -9,7 +9,7 @@
       });
     #legend
   .col-md-3
-    = search_form_for @search , :url => manage_reports_url , :html => { :class => "form-horizontal" , :role => "form"} do |f|
+    = search_form_for @search , :url => office.manage_reports_url , :html => { :class => "form-horizontal" , :role => "form"} do |f|
       .form-group
         = select_tag :type,  options_for_select( { t("order") => "Order" , t("purchase") =>  "Purchase"  } , @type) , :class => "form-control"
       .form-group
@@ -36,7 +36,7 @@
         .col-md-4
           = f.label :price , t(:price)
         .col-md-4
-          = f.text_field :price_gt , :size => 6 , :class => "form-control"          
+          = f.text_field :price_gt , :size => 6 , :class => "form-control"
         .col-md-4
           = f.text_field :price_lt , :size => 6 , :class => "form-control"
       .form-group
