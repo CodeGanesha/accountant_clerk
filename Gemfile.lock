@@ -24,9 +24,9 @@ GIT
 PATH
   remote: ../
   specs:
-    accountant_clerk (0.6)
+    accountant_clerk (0.7)
       flot-rails (~> 0.0.6)
-      office_clerk (~> 0.8)
+      office_clerk (~> 0.9)
 
 GEM
   remote: https://rubygems.org/
@@ -352,3 +352,6 @@ DEPENDENCIES
   sqlite3
   therubyracer
   uglifier (>= 1.3.0)
+
+BUNDLED WITH
+   1.10.6
