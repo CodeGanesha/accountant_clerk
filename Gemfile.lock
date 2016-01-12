@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/rubyclerks/office_clerk.git
-  revision: d584fd91d8e8cf16714311c9621a493e9d9ca4f9
+  revision: 5dd7e0d1b1d54a68ff2ed1e9106144610dec3cbd
   specs:
-    office_clerk (0.9)
+    office_clerk (1.0.0)
       bcrypt-ruby (~> 3.1)
       best_in_place (~> 3.0)
       bootstrap-sass (~> 3.1)
@@ -24,9 +24,9 @@ GIT
 PATH
   remote: ../
   specs:
-    accountant_clerk (0.7)
+    accountant_clerk (0.8)
       flot-rails (~> 0.0.6)
-      office_clerk (~> 0.9)
+      office_clerk (~> 1.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -257,7 +257,7 @@ GEM
       ffi (>= 0.5.0)
     rb-readline (0.5.1)
     ref (1.0.5)
-    request_store (1.2.1)
+    request_store (1.3.0)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -308,7 +308,7 @@ GEM
     thor (0.19.1)
     thread (0.1.4)
     thread_safe (0.3.5)
-    tilt (2.0.1)
+    tilt (2.0.2)
     timers (4.0.1)
       hitimes
     tins (1.3.3)
@@ -320,7 +320,7 @@ GEM
     valid_email (0.0.11)
       activemodel
       mail (~> 2.6.1)
-    will_paginate (3.0.7)
+    will_paginate (3.1.0)
     will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
     xpath (2.0.0)

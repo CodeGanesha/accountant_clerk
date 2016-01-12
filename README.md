@@ -17,7 +17,7 @@ You can search for (any combination of):
 
 You can group results, resulting in a stacked bar-graph, but you also get numeric sums for the group. Group results by:
 
-- nothing (just a summary per time interval) 
+- nothing (just a summary per time interval)
 - Category
 - Supplier
 - Product
@@ -42,21 +42,21 @@ The general idea is to start with an overview and drill down into interesting we
 
 For example, start with a year view by month, and group by Category. As a result you see which of your Categorys sells best and when it is selling the most. This may help you to create promotions at the right time for example.
 
-Say you have already found your strongest Categories but want to break it down by Supplier. 
+Say you have already found your strongest Categories but want to break it down by Supplier.
 So enter the Category, and group by Supplier: Thus you find the best selling supplier in that category and you may want to add a cross-sell for it, or an up-sell for similar products by other suppliers.
 
 Then you could add the supplier name to the search, and then group by Product. You then see the best selling Products of that Supplier in that Category.
 
 Then, if you remove the categoryfrom the search, the best selling Products of that supplier.
 
-In fact I often alternate between two properties. Search by one property, group by another and back and forth. 
+In fact I often alternate between two properties. Search by one property, group by another and back and forth.
 
 Installation
 ===========
 
-Just add 
+Just add
 
-gem "accountant_clerk"
+    gem "accountant_clerk"
 
 to your Gemfile and bundle.
 
@@ -67,9 +67,9 @@ There are no external dependencies and the only javascript file is referenced fr
 Status
 ======
 
-This is an old spree extension ported to clerks. As such it has been in use for 4-5 years. 
+This is an old spree extension ported to clerks. As such it has been in use for 6-7 years.
 While that doesn't make it perfect (see below) it does mean it is stable.
-The version number (<1) refers more to the code cleanliness than it's functionlity (read help appreciated)
+The version number (<1) refers more to the code cleanliness than it's functionality (read help appreciated)
 
 Issues
 =======
@@ -77,7 +77,7 @@ Issues
 The metasearch with subsequent ruby code approach has served well to get the project up quick. For larger datasets a more hand crafted sql approach may be needed.
 
 Also it is quite simple to grind your database and server to a halt by grouping by product, and reporting a year by day. All data gets loaded into memory!
-  
+
 Plans
 =====
 
