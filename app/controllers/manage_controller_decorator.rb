@@ -1,6 +1,31 @@
 ManageController.class_eval do
 
   def report
+    set_instance_data
+    search = build_search
+    table = Item.includes(:product)
+    table = table.includes(:category) if (@group_by == "by_category")
+    @search = table.ransack(search)
+    gon.flot_options = { :series => {  :bars =>  { :show => true , :barWidth => @days * 24*60*60*1000 } , :stack => true } ,
+                      :legend => {  :container => "#legend"} ,
+                      :xaxis =>  { :mode => "time" }
+                    }
+    group_data
+  end
+
+  private
+
+  def set_instance_data
+    @type = params[:type] || "Order"
+    @period = params[:period] || "week"
+    @days = 1
+    @days = 7 if @period == "week"
+    @days = 30.5 if @period == "month"
+    @price_or = (params[:price_or] || "total").to_sym
+    @group_by = (params[:group_by] || "all" )
+  end
+
+  def build_search
     search = params[:q] || {}
     search[:meta_sort] = "created_at asc"
     if search[:created_at_gt].blank?
@@ -8,53 +33,28 @@ ManageController.class_eval do
     else
       search[:created_at_gt] =
         begin
-          short_date(Time.zone.parse(search[:created_at_gt]).beginning_of_day) 
-        rescue 
+          short_date(Time.zone.parse(search[:created_at_gt]).beginning_of_day)
+        rescue
           I18n.l(Time.zone.now.beginning_of_month)
         end
     end
     unless search[:created_at_lt].blank?
       begin
-        search[:created_at_lt] = short_date(Time.zone.parse(search[:created_at_lt]).end_of_day) 
-      rescue 
+        search[:created_at_lt] = short_date(Time.zone.parse(search[:created_at_lt]).end_of_day)
+      rescue
       end
     end
-    @type = params[:type] || "Order"
-    search[:basket_kori_type_eq] = @type
-    @period = params[:period] || "week"
-    @days = 1
-    @days = 7 if @period == "week"
-    @days = 30.5 if @period == "month"
-    @price_or = (params[:price_or] || "total").to_sym
     search[:order_completed_at_present] = true
-    search_on = case @group_by
-      when "all"
-        Item
-      when "by_category"
-        Item.includes(:category)
-      when "by_product"
-        Item
-      when "by_variant"
-        Item
-      else
-        Item
-      end
-    @search = search_on.includes(:product).ransack(search)
-    gon.flot_options = { :series => {  :bars =>  { :show => true , :barWidth => @days * 24*60*60*1000 } , :stack => true } , 
-                      :legend => {  :container => "#legend"} , 
-                      :xaxis =>  { :mode => "time" }  
-                    }
-    group_data
+    search[:basket_kori_type_eq] = @type
+    search
   end
-  
-  private
-  
+
   def short_date d
     d = d.to_date unless d.is_a? Date
     I18n.l( d , :format => :default)
   end
+
   def group_data
-    @group_by = (params[:group_by] || "all" )
     all = @search.result(:distinct => true )
     flot = {}
     smallest = all.first ? all.first.created_at : Time.now - 1.week
@@ -65,20 +65,20 @@ ManageController.class_eval do
       all.each do |item|
         bucket = get_bucket(item)
         flot[ bucket ] = [] unless flot[bucket]
-        flot[ bucket ] << item        
+        flot[ bucket ] << item
       end
     end
     flot_data = flot.collect do |label , data |
       buck = bucket_array( data , smallest , largest )
       sum = buck.inject(0.0){|total , val | total + val[1] }.round(2)
-      { :label => "#{label} =#{sum}" , :data => buck } 
+      { :label => "#{label} =#{sum}" , :data => buck }
     end
     gon.flot_data = flot_data.sort{ |a,b| b[:label].split("=")[1].to_f <=> a[:label].split("=")[1].to_f }
   end
-      
+
   def get_bucket item
     return "all" if @group_by == "all"
-    case @group_by 
+    case @group_by
     when "by_category"
       item.product.category.blank? ? "blank" : item.product.category.name
     when "by_supplier"
@@ -87,13 +87,15 @@ ManageController.class_eval do
       item.product.full_name
     when "by_product_line"
       item.product.product ? item.product.product.name : item.product.name
+    when "by_email"
+      item.basket.kori.email
     else
       pps = item.product.properties.detect{|p,v| p == @group_by}
       pps ? pps.value : "blank"
     end
   end
 
-  # a new bucketet array version is returned 
+  # a new bucketet array version is returned
   # a value is creted for every tick between from and two (so all arrays have same length)
   # ticks int he returned array are javascsript times ie milliseconds since 1970
   def bucket_array( array  , from , to )
@@ -111,13 +113,11 @@ ManageController.class_eval do
       index = (item.created_at.to_i / rb_tick)*js_tick
       if ret[index] == nil
         puts "No index #{index} in array (for bucketing) #{ret.to_json}" if Rails.env == "development"
-        ret[index] = 0 
+        ret[index] = 0
       end
       ret[index] = ret[index] + value
     end
     ret.sort
   end
-  
+
 end
-
-
